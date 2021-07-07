@@ -1,0 +1,22 @@
+#https://leetcode.com/problems/partition-labels/submissions/
+class Solution:
+    def partitionLabels(self, s: str) -> List[int]:
+        dic = {}
+        for ind, c in enumerate(s):
+            if c not in dic:
+                dic[c] = [ind,ind]
+            else:
+                if dic[c][1] < ind:
+                    dic[c][1] = ind
+        res=[]
+        start = end =0
+        print(dic)
+        for key in dic:
+            if dic[key][1] > end:     
+                if dic[key][0] > end:
+                    res.append(end-start+1)
+                    start, end = dic[key][0], dic[key][1]  
+                else:
+                    end = dic[key][1]
+        res.append(end-start+1)
+        return res
